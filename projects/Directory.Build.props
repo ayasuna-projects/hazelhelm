@@ -1,0 +1,42 @@
+<Project>
+    <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+
+        <FrostseekSolutionVersion Condition="$(GITHUB_REF.StartsWith('refs/tags/'))">$(GITHUB_REF_NAME)</FrostseekSolutionVersion>
+    </PropertyGroup>
+    
+    <PropertyGroup>
+        <FrostseekLibraryTargetFrameworks>netstandard2.1</FrostseekLibraryTargetFrameworks>
+        <FrostseekApplicationTargetFrameworks>net7.0</FrostseekApplicationTargetFrameworks>
+
+        <FrostseekRootOutputPath>$(MSBuildThisFileDirectory)../artifacts/$(FrostseekProjectType)/$(MSBuildProjectName)/</FrostseekRootOutputPath>
+    </PropertyGroup>
+    <PropertyGroup>
+        <BaseOutputPath>$(FrostseekRootOutputPath)bin</BaseOutputPath>
+        <PackageOutputPath>$(FrostseekRootOutputPath)lib</PackageOutputPath>
+        <BaseIntermediateOutputPath>$(FrostseekRootOutputPath)obj</BaseIntermediateOutputPath>
+        <MSBuildProjectExtensionsPath>$(FrostseekRootOutputPath)obj</MSBuildProjectExtensionsPath>
+
+        <Authors>Philipp Schmalenbach</Authors>
+        <Copyright>Copyright 2023</Copyright>
+        <Nullable>enable</Nullable>
+        <NeutralLanguage>en-US</NeutralLanguage>
+        <LangVersion>11</LangVersion>
+        <EnableNETAnalyzers>true</EnableNETAnalyzers>
+
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+        <AssemblyVersion>$(FrostseekSolutionVersion)</AssemblyVersion>
+        <FileVersion>$(FrostseekSolutionVersion)</FileVersion>
+        <Version>$(FrostseekSolutionVersion)</Version>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Folder Include="$(MSBuildProjectDirectory)/Sources" />
+
+        <EmbeddedResource Include="$(MSBuildProjectDirectory)/Resources/**/*" Exclude="$(MSBuildProjectDirectory)/Resources/**/*.resx;$(MSBuildProjectDirectory)/Resources/**/*.cs"/>
+
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+    </ItemGroup>
+</Project>
