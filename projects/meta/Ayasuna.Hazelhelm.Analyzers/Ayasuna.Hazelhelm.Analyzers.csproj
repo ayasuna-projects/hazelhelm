@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>Library</OutputType>
-        <TargetFramework>$(FrostseekLibraryTargetFrameworks)</TargetFramework>
+        <TargetFramework>netstandard2.0</TargetFramework>
 
         <PackageId>Ayasuna.Hazelhelm.Analyzers</PackageId>
         <Description>Ayasuna.Hazelhelm.Analyzers contains the analyzers of Ayasuna.Hazelhelm</Description>
