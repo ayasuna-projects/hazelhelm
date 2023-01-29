@@ -5,9 +5,6 @@ using System;
 /// <summary>
 /// Uniquely identifies an entity. The scope (e.g. globally, current application run, current node) in which the id uniquely identifies an entity is undefined.
 /// </summary>
-/// <remarks>
-/// <see cref="Id"/> objects are considered equal if their (entity) <see cref="Type"/> and <see cref="Value"/> are equal even if their concrete implementation type differs. 
-/// </remarks>
 public abstract class Id : IEquatable<Id>, IComparable<Id>
 {
     /// <summary>
@@ -34,18 +31,23 @@ public abstract class Id : IEquatable<Id>, IComparable<Id>
     /// <inheritdoc />
     public bool Equals(Id other)
     {
-        return Type == other.Type && Value.Equals(other.Value);
+        return GetType() == other.GetType() && Type == other.Type && Value.Equals(other.Value);
     }
 
     /// <inheritdoc />
     public int CompareTo(Id other)
     {
-        if (Type == other.Type)
+        if (GetType() == other.GetType())
         {
-            return string.Compare(Value, other.Value, StringComparison.Ordinal);
+            if (Type == other.Type)
+            {
+                return string.Compare(Value, other.Value, StringComparison.Ordinal);
+            }
+            
+            return string.Compare(Type.FullName, other.Type.FullName, StringComparison.Ordinal);
         }
 
-        return string.Compare(Type.FullName, other.Type.FullName, StringComparison.Ordinal);
+        return string.Compare(GetType().FullName, other.GetType().FullName, StringComparison.Ordinal);
     }
 
     /// <inheritdoc />
@@ -62,9 +64,8 @@ public abstract class Id : IEquatable<Id>, IComparable<Id>
     /// <inheritdoc />
     public sealed override int GetHashCode()
     {
-        return HashCode.Combine(Type, Value);
+        return HashCode.Combine(GetType(), Type, Value);
     }
-    
 
     /// <summary>
     /// Returns the string representation of this <see cref="Id"/> which is always just the <see cref="Value"/> of the id.

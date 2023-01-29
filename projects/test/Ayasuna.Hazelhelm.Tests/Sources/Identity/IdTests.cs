@@ -58,24 +58,7 @@ public abstract class IdTests<TConcreteId, TEntity> where TConcreteId : Id<TEnti
 
         Assert.Equal(0, FirstId.CompareTo(FirstId));
     }
-
-    /// <summary>
-    /// Checks whether two ids of a <b>different</b> (implementation) type are considered equal when both have the <b>same</b> <see cref="Id.Type"/> and <see cref="Id.Value"/> 
-    /// </summary>
-    [Fact]
-    public void When_comparing_instances_of_different_id_implementations_with_one_another_they_should_be_considered_equal_if_their_value_and_type_are_equal()
-    {
-        var fake = new IdFake(FirstId.Value);
-
-        Assert.Equal(FirstId.Value, fake.Value);
-        Assert.Equal(FirstId.Type, fake.Type);
-
-        Assert.True(FirstId.Equals(fake));
-        Assert.True(((object)FirstId).Equals(fake));
-
-        Assert.Equal(0, FirstId.CompareTo(fake));
-    }
-
+    
     /// <summary>
     /// Checks whether two ids are considered unequal if their <see cref="Id.Type"/> and/or <see cref="Id.Value"/> is not the same
     /// </summary>
@@ -86,18 +69,5 @@ public abstract class IdTests<TConcreteId, TEntity> where TConcreteId : Id<TEnti
         Assert.False(((object)FirstId).Equals(SecondId));
 
         Assert.NotEqual(0, FirstId.CompareTo(SecondId));
-    }
-
-    /// <inheritdoc />
-    private class IdFake : Id<TEntity>
-    {
-        /// <summary>
-        /// Constructs a new <see cref="IdFake"/> object
-        /// </summary>
-        /// <param name="value">The value of the id</param>
-        public IdFake(string value)
-            : base(value)
-        {
-        }
     }
 }
