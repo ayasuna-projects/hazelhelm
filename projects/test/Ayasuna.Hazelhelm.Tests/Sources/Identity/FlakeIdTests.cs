@@ -4,31 +4,16 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using Hazelhelm.Identity;
 using Xunit;
 
 public class FlakeIdTests : IdTests<FlakeId<string>, string>
 {
-    private static readonly byte[] WorkerId1 =
-    {
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-    };
+    private static readonly PhysicalAddress WorkerId1 = PhysicalAddress.Parse("00:00:00:00:00:00");
 
-    private static readonly byte[] WorkerId2 =
-    {
-        0,
-        0,
-        0,
-        0,
-        0,
-        1
-    };
+    private static readonly PhysicalAddress WorkerId2 = PhysicalAddress.Parse("8D:88:D1:27:46:7B");
 
     private static readonly DateTimeOffset Timestamp1 = DateTimeOffset.UnixEpoch.AddMilliseconds(1);
 
@@ -38,7 +23,7 @@ public class FlakeIdTests : IdTests<FlakeId<string>, string>
     protected override FlakeId<string> SecondId => FlakeId.Create<string>(Timestamp2, WorkerId1, 0);
 
     /// <summary>
-    /// Tests whether the <see cref="FlakeId.Create{TEntity}(byte[])"/> is able to create flake ids
+    /// Tests whether the <see cref="FlakeId.Create{TEntity}(PhysicalAddress)"/> is able to create flake ids
     /// </summary>
     [Fact]
     public void It_should_be_possible_to_create_flake_ids()
@@ -79,7 +64,7 @@ public class FlakeIdTests : IdTests<FlakeId<string>, string>
     }
 
     /// <summary>
-    /// Tests whether <see cref="FlakeId.Create{TEntity}(DateTimeOffset,byte[],ushort)"/> correctly BASE62 encodes flake ids
+    /// Tests whether <see cref="FlakeId.Create{TEntity}(DateTimeOffset,PhysicalAddress,ushort)"/> correctly BASE62 encodes flake ids
     /// </summary>
     [Fact]
     public void Create_should_correctly_base62_encode_flake_ids()
@@ -97,21 +82,20 @@ public class FlakeIdTests : IdTests<FlakeId<string>, string>
         Assert.Equal(Timestamp2, flakeId2.Timestamp);
         Assert.Equal(WorkerId2, flakeId2.WorkerId);
         Assert.Equal(123, flakeId2.Sequence);
-        Assert.Equal("AIOZva18WrzVUAHwnT", flakeId2.ToString());
+        Assert.Equal("AIOZva1J1jQXuOMSOh", flakeId2.ToString());
     }
 
     /// <summary>
-    /// Tests whether <see cref="FlakeId.Create{TEntity}(byte[])"/> correctly throws an exception if the provided worker id is not exactly 48-bits long
+    /// Tests whether <see cref="FlakeId.Create{TEntity}(PhysicalAddress)"/> correctly throws an exception if the provided worker id is not exactly 48-bits long
     /// </summary>
     [Fact]
     public void Create_should_throw_an_exception_if_the_worker_id_is_not_exactly_48_bits_long()
     {
-        Assert.Throws<ArgumentOutOfRangeException>(() => FlakeId.Create<string>("12345678"u8.ToArray()));
-        Assert.Throws<ArgumentOutOfRangeException>(() => FlakeId.Create<string>("12345"u8.ToArray()));
+        Assert.Throws<ArgumentOutOfRangeException>(() => FlakeId.Create<string>(PhysicalAddress.None));
     }
     
     /// <summary>
-    /// Tests whether <see cref="FlakeId.Create{TEntity}(byte[])"/> correctly throws an exception if the provided timestamp is less than or equal to the start of the unix epoch
+    /// Tests whether <see cref="FlakeId.Create{TEntity}(PhysicalAddress)"/> correctly throws an exception if the provided timestamp is less than or equal to the start of the unix epoch
     /// </summary>
     [Fact]
     public void Create_should_throw_an_exception_if_the_timestamp_is_less_than_or_equal_to_the_start_of_the_unix_epoch()
@@ -119,7 +103,7 @@ public class FlakeIdTests : IdTests<FlakeId<string>, string>
         Assert.Throws<ArgumentOutOfRangeException>(() => FlakeId.Create<string>(DateTimeOffset.UnixEpoch, WorkerId1, 0));
         Assert.Throws<ArgumentOutOfRangeException>(() => FlakeId.Create<string>(DateTimeOffset.UnixEpoch.AddYears(-100), WorkerId1, 0));
     }
-
+    
     /// <summary>
     /// Tests whether <see cref="FlakeId.FromString{TEntity}(string)"/> is able to (re)create flake ids from their base62 encoded representation
     /// </summary>
