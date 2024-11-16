@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>Library</OutputType>
-        <TargetFramework>$(FrostseekApplicationTargetFrameworks)</TargetFramework>
+        <TargetFrameworks>$(FrostseekDefaultTargetFrameworks)</TargetFrameworks>
     </PropertyGroup>
     <ItemGroup>
       <ProjectReference Include="..\..\main\Ayasuna.Hazelhelm\Ayasuna.Hazelhelm.csproj" />

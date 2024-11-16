@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>Library</OutputType>
-        <TargetFramework>$(FrostseekLibraryTargetFrameworks)</TargetFramework>
+        <TargetFrameworks>$(FrostseekDefaultTargetFrameworks)</TargetFrameworks>
 
         <PackageId>Ayasuna.Hazelhelm</PackageId>
         <Description>Ayasuna.Hazelhelm is a small utility library containing common types that are used in many Ayasuna projects.</Description>

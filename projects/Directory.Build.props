@@ -6,8 +6,8 @@
     </PropertyGroup>
     
     <PropertyGroup>
-        <FrostseekLibraryTargetFrameworks>netstandard2.1</FrostseekLibraryTargetFrameworks>
-        <FrostseekApplicationTargetFrameworks>net7.0</FrostseekApplicationTargetFrameworks>
+        <FrostseekDefaultTargetFrameworks>net8.0;net9.0</FrostseekDefaultTargetFrameworks>
+        <FrostseekAnalyzerTargetFrameworks>netstandard2.0</FrostseekAnalyzerTargetFrameworks>
 
         <FrostseekRootOutputPath>$(MSBuildThisFileDirectory)../artifacts/$(FrostseekProjectType)/$(MSBuildProjectName)/</FrostseekRootOutputPath>
     </PropertyGroup>
@@ -18,11 +18,13 @@
         <MSBuildProjectExtensionsPath>$(FrostseekRootOutputPath)obj</MSBuildProjectExtensionsPath>
 
         <Authors>Philipp Schmalenbach</Authors>
-        <Copyright>Copyright 2023</Copyright>
+        <Copyright>Copyright 2024</Copyright>
         <Nullable>enable</Nullable>
         <NeutralLanguage>en-US</NeutralLanguage>
-        <LangVersion>11</LangVersion>
+        <LangVersion>12</LangVersion>
         <EnableNETAnalyzers>true</EnableNETAnalyzers>
+        <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
 
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -37,6 +39,6 @@
 
         <EmbeddedResource Include="$(MSBuildProjectDirectory)/Resources/**/*" Exclude="$(MSBuildProjectDirectory)/Resources/**/*.resx;$(MSBuildProjectDirectory)/Resources/**/*.cs"/>
 
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All"/>
     </ItemGroup>
 </Project>

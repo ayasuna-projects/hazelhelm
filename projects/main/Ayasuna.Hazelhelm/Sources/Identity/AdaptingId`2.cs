@@ -19,7 +19,7 @@ public class AdaptingId<TEntity, TExternalId> : Id<TEntity> where TEntity : notn
     /// </summary>
     /// <param name="adaptee">The external id to adapt, it's string representation will be obtained by calling <c>ToString</c> on it</param>
     public AdaptingId(TExternalId adaptee)
-        : this(adaptee, e => e.ToString())
+        : this(adaptee, e => e.ToString()!)
     {
     }
 
