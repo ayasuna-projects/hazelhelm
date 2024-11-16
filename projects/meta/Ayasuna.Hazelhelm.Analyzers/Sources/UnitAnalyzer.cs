@@ -15,7 +15,7 @@ public sealed class UnitAnalyzer : DiagnosticAnalyzer
     (
         "AYASUNA_HAZELHELM_1000",
         "Duplicate interfaces found",
-        "This interface shares it's name with {0} other interfaces that only differ in their generic type parameters, consider replacing all of them with one interface by using the 'Unit' type as placeholder type parameter.",
+        "This interface shares it's name with {0} other interfaces that only differ in their generic type parameters, consider replacing all of them with one interface by using the 'Unit' type as placeholder type parameter",
         "Ayasuna.Design",
         DiagnosticSeverity.Info,
         true

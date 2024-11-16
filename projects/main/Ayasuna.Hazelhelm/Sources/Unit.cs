@@ -33,7 +33,7 @@ public readonly struct Unit : IEquatable<Unit>, IComparable<Unit>
     }
     
     /// <inheritdoc />
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         return obj is Unit;
     }

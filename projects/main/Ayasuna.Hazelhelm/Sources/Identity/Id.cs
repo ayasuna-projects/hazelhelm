@@ -29,15 +29,15 @@ public abstract class Id : IEquatable<Id>, IComparable<Id>
     }
 
     /// <inheritdoc />
-    public bool Equals(Id other)
+    public bool Equals(Id? other)
     {
-        return GetType() == other.GetType() && Type == other.Type && Value.Equals(other.Value);
+        return GetType() == other?.GetType() && Type == other.Type && Value.Equals(other.Value);
     }
 
     /// <inheritdoc />
-    public int CompareTo(Id other)
+    public int CompareTo(Id? other)
     {
-        if (GetType() == other.GetType())
+        if (GetType() == other?.GetType())
         {
             if (Type == other.Type)
             {
@@ -47,11 +47,11 @@ public abstract class Id : IEquatable<Id>, IComparable<Id>
             return string.Compare(Type.FullName, other.Type.FullName, StringComparison.Ordinal);
         }
 
-        return string.Compare(GetType().FullName, other.GetType().FullName, StringComparison.Ordinal);
+        return string.Compare(GetType().FullName, other?.GetType().FullName, StringComparison.Ordinal);
     }
 
     /// <inheritdoc />
-    public sealed override bool Equals(object obj)
+    public sealed override bool Equals(object? obj)
     {
         if (obj is Id asId)
         {

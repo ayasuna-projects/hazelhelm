@@ -56,11 +56,13 @@ public class FlakeIdTests : IdTests<FlakeId<string>, string>
             FlakeId.Create<string>(Timestamp2.AddMilliseconds(1), WorkerId1, 3)
         };
 
-        // NOTE: We're using Reverse here to ensure that the sorted set does not simply follow insertion order by really orders the ids
+        // NOTE: We're using Reverse here to ensure that the sorted set does not simply follow insertion order but really orders the ids
         var inSortedSet = createdIdsInExpectedOrder.Select(e => e).Reverse().ToImmutableSortedSet();
         
         
+#pragma warning disable xUnit2027
         Assert.Equal(createdIdsInExpectedOrder, inSortedSet);
+#pragma warning restore xUnit2027
     }
 
     /// <summary>
