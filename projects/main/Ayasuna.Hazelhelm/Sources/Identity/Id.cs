@@ -43,7 +43,7 @@ public abstract class Id : IEquatable<Id>, IComparable<Id>
             {
                 return string.Compare(Value, other.Value, StringComparison.Ordinal);
             }
-            
+
             return string.Compare(Type.FullName, other.Type.FullName, StringComparison.Ordinal);
         }
 

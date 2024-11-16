@@ -31,7 +31,7 @@ public readonly struct Unit : IEquatable<Unit>, IComparable<Unit>
     {
         return 0;
     }
-    
+
     /// <inheritdoc />
     public override bool Equals(object? obj)
     {
@@ -60,7 +60,7 @@ public readonly struct Unit : IEquatable<Unit>, IComparable<Unit>
     {
         return true;
     }
-    
+
     /// <summary>
     /// Compares the given left hand side (<paramref name="lh"/>) unit value with the given right hand side (<paramref name="rh"/>) unit value for inequality, which will always return <c>false</c> as all instances of the unit type share the same value. 
     /// </summary>
@@ -71,7 +71,4 @@ public readonly struct Unit : IEquatable<Unit>, IComparable<Unit>
     {
         return false;
     }
-    
-    
-    
 }

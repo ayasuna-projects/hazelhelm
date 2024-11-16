@@ -51,7 +51,7 @@ public sealed class ImmutableFrozenSetTests
 
         Assert.NotSame(_set, newSet);
         Assert.Equal(_set.Count + 1, newSet.Count);
-        
+
         Assert.True(newSet.Contains(Foo));
         Assert.True(newSet.Contains(Bar));
         Assert.True(newSet.Contains(Baz));

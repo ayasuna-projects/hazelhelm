@@ -7,15 +7,15 @@ using Xunit;
 public sealed class AdaptingIdTests : IdTests<AdaptingId<AdaptingIdTests, string>, AdaptingIdTests>
 {
     private const string First = nameof(First);
-    
+
     private const string Second = nameof(Second);
-    
+
     /// <inheritdoc />
     protected override AdaptingId<AdaptingIdTests, string> FirstId => new(First);
 
     /// <inheritdoc />
     protected override AdaptingId<AdaptingIdTests, string> SecondId => new(Second);
-    
+
     /// <summary>
     /// Checks whether the <see cref="AdaptingId{TEntity,TExternalId}.Adaptee"/> is equal to the value/adaptee that was provided when constructing the <see cref="AdaptingId{TEntity,TExternalId}"/> 
     /// </summary>

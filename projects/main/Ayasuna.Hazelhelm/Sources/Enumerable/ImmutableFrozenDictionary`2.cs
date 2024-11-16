@@ -43,7 +43,7 @@ public sealed class ImmutableFrozenDictionary<TKey, TValue> : IImmutableDictiona
     private readonly IEqualityComparer<TKey>? _keyComparer;
 
     private readonly IEqualityComparer<TValue>? _valueComparer;
-    
+
     /// <summary>
     /// Constructs a new <see cref="ImmutableFrozenDictionary{TKey,TValue}"/> object
     /// </summary>

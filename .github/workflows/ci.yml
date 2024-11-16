@@ -33,7 +33,7 @@ jobs:
             -   name: Pack
                 run: dotnet pack --configuration $BUILD_CONFIGURATION --no-build
             -   name: Upload build output
-                uses: actions/upload-artifact@v3
+                uses: actions/upload-artifact@v4
                 with:
                     name: build-output
                     path: |
@@ -53,7 +53,7 @@ jobs:
                     dotnet-version: ${{ env.BUILD_DOTNET_VERSION }}
                     dotnet-quality: ${{ env.BUILD_DOTNET_QUALITY }}
             -   name: Download build output
-                uses: actions/download-artifact@v3
+                uses: actions/download-artifact@v4
                 with:
                     name: build-output
                     path: output

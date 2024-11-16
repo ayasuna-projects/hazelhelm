@@ -28,7 +28,7 @@ public sealed class ImmutableFrozenSet<TValue> : IImmutableSet<TValue>
     private readonly FrozenSet<TValue> _set;
 
     private readonly IEqualityComparer<TValue>? _comparer;
-    
+
     /// <summary>
     /// Creates a new <see cref="ImmutableFrozenSet{TValue}"/> object
     /// </summary>

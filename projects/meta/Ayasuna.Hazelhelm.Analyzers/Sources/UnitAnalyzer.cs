@@ -59,7 +59,11 @@ public sealed class UnitAnalyzer : DiagnosticAnalyzer
         // If we found more than one interface with the same canonical name in the same namespace check if all those interfaces also have the same members and only define supported type constraints for their type parameters, if so we consider them mergeable
 
         var filteredInterfaces = allInterfaceInSameNamespaceWithSameCanonicalName
-                .Where(currentInterfaceSymbol => declaredInterfaceSymbol.MemberNames.All(currentInterfaceSymbol.MemberNames.Contains) && currentInterfaceSymbol.MemberNames.All(declaredInterfaceSymbol.MemberNames.Contains))
+                .Where
+                (
+                    currentInterfaceSymbol => declaredInterfaceSymbol.MemberNames.All(currentInterfaceSymbol.MemberNames.Contains) &&
+                                              currentInterfaceSymbol.MemberNames.All(declaredInterfaceSymbol.MemberNames.Contains)
+                )
                 .Where(HasOnlySupportedTypeConstraints)
                 .ToImmutableList()
             ;

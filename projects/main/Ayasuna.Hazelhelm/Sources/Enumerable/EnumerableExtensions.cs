@@ -83,7 +83,7 @@ public static class EnumerableExtensions
     {
         return ImmutableFrozenDictionary.Create(@this, keyComparer, valueComparer);
     }
-    
+
     /// <summary>
     /// Creates a new <see cref="ImmutableFrozenSet{TValue}"/> from <paramref name="this"/> enumerable
     /// </summary>

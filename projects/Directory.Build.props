@@ -4,7 +4,7 @@
 
         <FrostseekSolutionVersion Condition="$(GITHUB_REF.StartsWith('refs/tags/'))">$(GITHUB_REF_NAME)</FrostseekSolutionVersion>
     </PropertyGroup>
-    
+
     <PropertyGroup>
         <FrostseekDefaultTargetFrameworks>net8.0;net9.0</FrostseekDefaultTargetFrameworks>
         <FrostseekAnalyzerTargetFramework>netstandard2.0</FrostseekAnalyzerTargetFramework>
@@ -37,8 +37,8 @@
     <ItemGroup>
         <Folder Include="$(MSBuildProjectDirectory)/Sources" />
 
-        <EmbeddedResource Include="$(MSBuildProjectDirectory)/Resources/**/*" Exclude="$(MSBuildProjectDirectory)/Resources/**/*.resx;$(MSBuildProjectDirectory)/Resources/**/*.cs"/>
+        <EmbeddedResource Include="$(MSBuildProjectDirectory)/Resources/**/*" Exclude="$(MSBuildProjectDirectory)/Resources/**/*.resx;$(MSBuildProjectDirectory)/Resources/**/*.cs" />
 
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All"/>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
     </ItemGroup>
 </Project>
