@@ -16,7 +16,7 @@ public class IntegerTests
     public void The_ToBase2_method_should_be_able_convert_integers_correctly_to_their_base2_representation()
     {
         var integersToTest = Enumerable.Range(0, 1000000);
-        
+
         foreach (var integer in integersToTest)
         {
             Assert.Equal(Convert.ToString(integer, 2), Integer.ToBase2(integer));
@@ -36,7 +36,7 @@ public class IntegerTests
             Assert.Equal(integer, Integer.FromBase2(Convert.ToString(integer, 2)));
         }
     }
-    
+
     /// <summary>
     /// Tests whether the <see cref="Integer.ToBase8"/> method correctly converts integers to their string representation
     /// </summary>
@@ -93,7 +93,7 @@ public class IntegerTests
         }
     }
 
-    
+
     /// <summary>
     /// Tests whether the <see cref="Integer.ToBase16"/> method correctly converts integers to their string representation
     /// </summary>
@@ -121,7 +121,7 @@ public class IntegerTests
             Assert.Equal(integer, Integer.FromBase16(Convert.ToString(integer, 16)));
         }
     }
-    
+
     /// <summary>
     /// Tests whether the <see cref="Integer.ToBase62"/> method correctly converts integers to their string representation
     /// </summary>

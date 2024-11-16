@@ -35,7 +35,14 @@ public static class FlakeId
 
         Buffer.BlockCopy(bytesInLittleEndianOrder, 0, sequenceIdBytes, 0, sequenceIdBytes.Length);
         Buffer.BlockCopy(bytesInLittleEndianOrder, sequenceIdBytes.Length, workerId, 0, workerId.Length);
-        Buffer.BlockCopy(bytesInLittleEndianOrder, sequenceIdBytes.Length + workerId.Length, timestampBytes, 0, bytesInLittleEndianOrder.Length - sequenceIdBytes.Length - workerId.Length);
+        Buffer.BlockCopy
+        (
+            bytesInLittleEndianOrder,
+            sequenceIdBytes.Length + workerId.Length,
+            timestampBytes,
+            0,
+            bytesInLittleEndianOrder.Length - sequenceIdBytes.Length - workerId.Length
+        );
 
         if (!BitConverter.IsLittleEndian)
         {
@@ -138,7 +145,11 @@ public static class FlakeId
     {
         if (timestamp <= DateTimeOffset.UnixEpoch)
         {
-            throw new ArgumentOutOfRangeException(nameof(timestamp), "The given timestamp is less than or equal to the start of the unix epoch but must be at least one millisecond larger");
+            throw new ArgumentOutOfRangeException
+            (
+                nameof(timestamp),
+                "The given timestamp is less than or equal to the start of the unix epoch but must be at least one millisecond larger"
+            );
         }
 
         var workerIdBytes = workerId.GetAddressBytes();

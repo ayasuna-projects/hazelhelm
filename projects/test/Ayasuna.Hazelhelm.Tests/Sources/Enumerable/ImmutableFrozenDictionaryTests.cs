@@ -22,7 +22,7 @@ public sealed class ImmutableFrozenDictionaryTests
     /// </summary>
     public ImmutableFrozenDictionaryTests()
     {
-        _dictionary = [ new KeyValuePair<string, string>(Foo, Baz), new KeyValuePair<string, string>(Bar, Foo) ];
+        _dictionary = [new KeyValuePair<string, string>(Foo, Baz), new KeyValuePair<string, string>(Bar, Foo)];
     }
 
     /// <summary>
@@ -36,17 +36,14 @@ public sealed class ImmutableFrozenDictionaryTests
         Assert.Equal(expectedCount, _dictionary.Count);
 
         var newDictionary = _dictionary.SetItem(Baz, Bar);
-        
+
         Assert.NotSame(_dictionary, newDictionary);
         Assert.Equal(expectedCount, _dictionary.Count);
 
         Assert.Equal(expectedCount + 1, newDictionary.Count);
-        
+
         Assert.True(newDictionary.ContainsKey(Foo));
         Assert.True(newDictionary.ContainsKey(Bar));
         Assert.True(newDictionary.ContainsKey(Baz));
-        
     }
-
-    
 }

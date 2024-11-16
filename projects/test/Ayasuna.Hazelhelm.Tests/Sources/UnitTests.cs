@@ -27,7 +27,7 @@ public sealed class UnitTests
         Assert.True(Unit.Value == Unit.Value);
         Assert.True(Unit.Value == new Unit());
         Assert.True(Unit.Value == default);
-        
+
         Assert.False(Unit.Value != Unit.Value);
         Assert.False(Unit.Value != new Unit());
         Assert.False(Unit.Value != default);

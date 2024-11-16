@@ -27,7 +27,7 @@ public static class ImmutableFrozenDictionary
     {
         return new ImmutableFrozenDictionary<TKey, TValue>(pairs, keyComparer, valueComparer);
     }
-    
+
     /// <summary>
     /// Creates an empty <see cref="ImmutableFrozenDictionary{TKey,TValue}"/>
     /// </summary>

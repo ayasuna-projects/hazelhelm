@@ -58,8 +58,8 @@ public class FlakeIdTests : IdTests<FlakeId<string>, string>
 
         // NOTE: We're using Reverse here to ensure that the sorted set does not simply follow insertion order but really orders the ids
         var inSortedSet = createdIdsInExpectedOrder.Select(e => e).Reverse().ToImmutableSortedSet();
-        
-        
+
+
 #pragma warning disable xUnit2027
         Assert.Equal(createdIdsInExpectedOrder, inSortedSet);
 #pragma warning restore xUnit2027
@@ -95,7 +95,7 @@ public class FlakeIdTests : IdTests<FlakeId<string>, string>
     {
         Assert.Throws<ArgumentOutOfRangeException>(() => FlakeId.Create<string>(PhysicalAddress.None));
     }
-    
+
     /// <summary>
     /// Tests whether <see cref="FlakeId.Create{TEntity}(PhysicalAddress)"/> correctly throws an exception if the provided timestamp is less than or equal to the start of the unix epoch
     /// </summary>
@@ -105,7 +105,7 @@ public class FlakeIdTests : IdTests<FlakeId<string>, string>
         Assert.Throws<ArgumentOutOfRangeException>(() => FlakeId.Create<string>(DateTimeOffset.UnixEpoch, WorkerId1, 0));
         Assert.Throws<ArgumentOutOfRangeException>(() => FlakeId.Create<string>(DateTimeOffset.UnixEpoch.AddYears(-100), WorkerId1, 0));
     }
-    
+
     /// <summary>
     /// Tests whether <see cref="FlakeId.FromString{TEntity}(string)"/> is able to (re)create flake ids from their base62 encoded representation
     /// </summary>

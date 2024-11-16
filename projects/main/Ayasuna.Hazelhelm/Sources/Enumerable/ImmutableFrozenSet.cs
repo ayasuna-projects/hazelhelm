@@ -24,7 +24,7 @@ public static class ImmutableFrozenSet
     {
         return new ImmutableFrozenSet<TValue>(values, comparer);
     }
-    
+
     /// <summary>
     /// Creates an empty <see cref="ImmutableFrozenSet{TValue}"/>
     /// </summary>

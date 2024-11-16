@@ -58,7 +58,7 @@ public abstract class IdTests<TConcreteId, TEntity> where TConcreteId : Id<TEnti
 
         Assert.Equal(0, FirstId.CompareTo(FirstId));
     }
-    
+
     /// <summary>
     /// Checks whether two ids are considered unequal if their <see cref="Id.Type"/> and/or <see cref="Id.Value"/> is not the same
     /// </summary>
