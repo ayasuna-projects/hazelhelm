@@ -1,7 +1,9 @@
 namespace Ayasuna.Hazelhelm.Enumerable;
 
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 
 /// <summary>
 /// Adds extension methods to the <see cref="IEnumerable{T}"/> interface
@@ -63,6 +65,56 @@ public static class EnumerableExtensions
         }
 
         return @this;
+    }
+
+    
+    /// <summary>
+    /// Creates a new <see cref="ImmutableFrozenDictionary{TKey,TValue}"/> from <paramref name="this"/> enumerable
+    /// </summary>
+    /// <param name="this">The enumerable to create the dictionary from</param>
+    /// <param name="keySelector">The function to call to get the key for a <see cref="TValue"/></param>
+    /// <param name="keyComparer">The key comparer to use, if null <see cref="EqualityComparer{T}.Default"/> is used</param>
+    /// <param name="valueComparer">The value comparer to use, if null <see cref="EqualityComparer{T}.Default"/> is used</param>
+    /// <typeparam name="TKey">The key type</typeparam>
+    /// <typeparam name="TValue">The value type</typeparam>
+    /// <returns>The created <see cref="ImmutableFrozenDictionary{TKey,TValue}"/></returns>
+    public static ImmutableFrozenDictionary<TKey, TValue> ToImmutableFrozenDictionary<TKey, TValue>
+    (
+        this IEnumerable<TValue> @this,
+        Func<TValue, TKey> keySelector,
+        IEqualityComparer<TKey>? keyComparer = null,
+        IEqualityComparer<TValue>? valueComparer = null
+    ) where TKey : notnull
+    {
+        return @this
+            .Select(e => new KeyValuePair<TKey,TValue>(keySelector(e), e))
+            .ToImmutableFrozenDictionary(keyComparer, valueComparer);
+    }
+    
+    /// <summary>
+    /// Creates a new <see cref="ImmutableFrozenDictionary{TKey,TValue}"/> from <paramref name="this"/> enumerable
+    /// </summary>
+    /// <param name="this">The enumerable to create the dictionary from</param>
+    /// <param name="keySelector">The function to call to get the key for a <see cref="TElement"/></param>
+    /// <param name="valueSelector">The function to call to get the value for a <see cref="TElement"/></param>
+    /// <param name="keyComparer">The key comparer to use, if null <see cref="EqualityComparer{T}.Default"/> is used</param>
+    /// <param name="valueComparer">The value comparer to use, if null <see cref="EqualityComparer{T}.Default"/> is used</param>
+    /// <typeparam name="TElement">The element type of <paramref name="this"/> enumerable</typeparam>
+    /// <typeparam name="TKey">The key type</typeparam>
+    /// <typeparam name="TValue">The value type</typeparam>
+    /// <returns>The created <see cref="ImmutableFrozenDictionary{TKey,TValue}"/></returns>
+    public static ImmutableFrozenDictionary<TKey, TValue> ToImmutableFrozenDictionary<TElement, TKey, TValue>
+    (
+        this IEnumerable<TElement> @this,
+        Func<TElement, TKey> keySelector,
+        Func<TElement, TValue> valueSelector,
+        IEqualityComparer<TKey>? keyComparer = null,
+        IEqualityComparer<TValue>? valueComparer = null
+    ) where TKey : notnull
+    {
+        return @this
+            .Select(e => new KeyValuePair<TKey,TValue>(keySelector(e), valueSelector(e)))
+            .ToImmutableFrozenDictionary(keyComparer, valueComparer);
     }
 
     /// <summary>
