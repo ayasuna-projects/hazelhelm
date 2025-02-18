@@ -36,6 +36,16 @@ public sealed class ImmutableFrozenDictionary<TKey, TValue> : IImmutableDictiona
     /// <inheritdoc />
     public TValue this[TKey key] => _dictionary[key];
 
+    /// <summary>
+    /// Provides access to the key comparer used by this dictionary
+    /// </summary>
+    public IEqualityComparer<TKey> KeyComparer => _dictionary.Comparer;
+
+    /// <summary>
+    /// Provides access to the value comparer used by this dictionary
+    /// </summary>
+    public IEqualityComparer<TValue> ValueComparer => _valueComparer ?? EqualityComparer<TValue>.Default;
+
     private readonly FrozenDictionary<TKey, TValue> _dictionary;
 
     private readonly ImmutableFrozenSet<TKey> _keys;
@@ -92,13 +102,13 @@ public sealed class ImmutableFrozenDictionary<TKey, TValue> : IImmutableDictiona
     {
         return new ImmutableFrozenDictionary<TKey, TValue>([], _keyComparer, _valueComparer);
     }
-
+    
     /// <inheritdoc />
     public bool Contains(KeyValuePair<TKey, TValue> pair)
     {
         if (TryGetValue(pair.Key, out var value))
         {
-            return _valueComparer?.Equals(pair.Value, value) ?? EqualityComparer<TValue>.Default.Equals(pair.Value, value);
+            return ValueComparer.Equals(pair.Value, value);
         }
 
         return false;

@@ -25,6 +25,11 @@ public sealed class ImmutableFrozenSet<TValue> : IImmutableSet<TValue>
     /// <inheritdoc />
     public int Count => _set.Count;
 
+    /// <summary>
+    /// Provides access to the comparer used by this set
+    /// </summary>
+    public IEqualityComparer<TValue> Comparer => _set.Comparer;
+
     private readonly FrozenSet<TValue> _set;
 
     private readonly IEqualityComparer<TValue>? _comparer;
