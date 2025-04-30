@@ -6,4 +6,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\main\Ayasuna.Hazelhelm\Ayasuna.Hazelhelm.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Folder Remove="Sources" />
+    </ItemGroup>
 </Project>
