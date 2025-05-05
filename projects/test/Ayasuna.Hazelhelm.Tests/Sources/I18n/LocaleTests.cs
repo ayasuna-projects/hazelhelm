@@ -12,22 +12,7 @@ public sealed class LocaleTests
     private const string EnUs = "en-US";
 
     private const string DeDe = "de-DE";
-
-    /// <summary>
-    /// Tests whether the default locale is equal to en-US
-    /// </summary>
-    [Fact]
-    public void The_default_locale_should_be_equal_to_en_US()
-    {
-        Locale toTest = default;
-
-        Assert.Equal(EnUs, toTest.ToString());
-        Assert.Equal(EnUs, toTest.Culture.Name);
-        Assert.Equal(toTest, Locale.Parse(EnUs));
-        Assert.Equal(toTest, Locale.Get(CultureInfo.GetCultureInfo(EnUs)));
-        Assert.Equal(toTest, new Locale());
-    }
-
+    
     /// <summary>
     /// Tests whether two <see cref="Locale">locales</see> are equal to one another if they were created from the same <see cref="CultureInfo"/>
     /// </summary>
@@ -48,7 +33,8 @@ public sealed class LocaleTests
         Assert.False(first != second);
         Assert.False(second != first);
         
-        Assert.Same(first.Culture, second.Culture);
+        // The locales be the *same* as the locales are cached
+        Assert.Same(first, second);
         // While generally not guaranteed that the culture of the locale is the same as the culture for which the locale was looked up they should be the same in this case
         // as the culture we used for the lookup is not a custom culture.
         Assert.Same(culture, first.Culture);
@@ -75,67 +61,91 @@ public sealed class LocaleTests
         Assert.True(first != second);
         Assert.True(second != first);
         
+        Assert.NotSame(first, second);
+        Assert.NotSame(first.Id, second.Id);
         Assert.NotSame(first.Culture, second.Culture);
     }
     
     /// <summary>
     /// Tests whether two <see cref="Locale.TryParse"/> is not able to parse invalid locale strings
     /// </summary>
-    [Fact]
-    public void TryParse_should_not_be_able_to_parse_invalid_locale_strings()
+    /// <param name="localeId">The locale ID</param>
+    [Theory]
+    [InlineData("INVALID")]
+    [InlineData("invalid")]
+    [InlineData("IN-va")]
+    [InlineData("de_DE")]
+    [InlineData("en_US")]
+    public void TryParse_should_not_be_able_to_parse_invalid_locale_strings(string localeId)
     {
-        Assert.False(Locale.TryParse("INVALID", out _));
-        Assert.False(Locale.TryParse("invalid", out _));
-        Assert.False(Locale.TryParse("IN-va", out _));
-        Assert.False(Locale.TryParse("de_DE", out _));
-        Assert.False(Locale.TryParse("en_US", out _));
+        Assert.False(Locale.TryParse(localeId, out _));
     }
     
     /// <summary>
     /// Tests whether two <see cref="Locale.TryParse"/> is able to parse valid locale strings
     /// </summary>
-    [Fact]
-    public void TryParse_should_not_be_able_to_parse_valid_locale_strings()
+    /// <param name="localeId">The locale ID</param>
+    [Theory]
+    [InlineData(DeDe)]
+    [InlineData(EnUs)]
+    [InlineData("en-GB")]
+    [InlineData("de-AT")]
+    [InlineData("ja-JP")]
+    public void TryParse_should_be_able_to_parse_valid_locale_strings(string localeId)
     {
-        Assert.True(Locale.TryParse(EnUs, out _));
-        Assert.True(Locale.TryParse(DeDe, out _));
-        Assert.True(Locale.TryParse("en-GB", out _));
-        Assert.True(Locale.TryParse("de-AT", out _));
-        Assert.True(Locale.TryParse("ja-JP", out _));
+        Assert.True(Locale.TryParse(localeId, out _));
     }
     
     /// <summary>
     /// Tests whether it is possible to convert a <see cref="Locale"/> to a <see cref="CultureInfo"/>
     /// </summary>
-    [Fact]
-    public void It_should_be_possible_to_convert_a_Locale_to_a_CultureInfo()
+    /// <param name="localeId">The locale ID</param>
+    [Theory]
+    [InlineData(DeDe)]
+    [InlineData(EnUs)]
+    public void It_should_be_possible_to_convert_a_Locale_to_a_CultureInfo(string localeId)
     {
-        var l1 = default(Locale);
-        var l2 = new Locale();
-        var l3 = Locale.Parse(DeDe);
+        var parsed = Locale.Parse(localeId);
+        
+        CultureInfo culture = parsed;
 
-        CultureInfo c1 = l1;
-        CultureInfo c2 = l2;
-        CultureInfo c3 = l3;
-
-        Assert.NotNull(c1);
-        Assert.NotNull(c2);
-        Assert.NotNull(c3);
+        Assert.NotNull(culture);
+        Assert.NotNull(culture.Name);
     }
     
     /// <summary>
     /// Tests whether it is possible to convert a <see cref="CultureInfo"/> to a <see cref="Locale"/>
     /// </summary>
-    [Fact]
-    public void It_should_be_possible_to_convert_a_CultureInfo_to_a_Locale()
+    /// <param name="localeId">The locale ID</param>
+    [Theory]
+    [InlineData(DeDe)]
+    [InlineData(EnUs)]
+    public void It_should_be_possible_to_convert_a_CultureInfo_to_a_Locale(string localeId)
     {
-        var c1 = CultureInfo.GetCultureInfo(EnUs);
-        var c2 = CultureInfo.GetCultureInfo(DeDe);
+        var culture = CultureInfo.GetCultureInfo(localeId);
 
-        Locale l1 = c1;
-        Locale l2 = c2;
+        Locale locale = culture;
 
-        Assert.NotNull(l1.Culture);
-        Assert.NotNull(l2.Culture);
+        Assert.NotNull(locale);
+        Assert.NotNull(locale.Culture);
+    }
+    
+        
+    /// <summary>
+    /// Tests whether the string representation of a <see cref="Locale"/> is equal to the <paramref name="localeId"/>
+    /// </summary>
+    /// <param name="localeId">The locale ID</param>
+    [Theory]
+    [InlineData(DeDe)]
+    [InlineData(EnUs)]
+    [InlineData("en-GB")]
+    [InlineData("de-AT")]
+    [InlineData("ja-JP")]
+    public void The_string_representation_of_a_locale_should_be_equal_to_the_locale_id(string localeId)
+    {
+        var locale = Locale.Parse(localeId);
+        
+        Assert.Equal(localeId, locale.ToString());
+        Assert.Equal(locale.Id.ToString(), locale.ToString());
     }
 }
