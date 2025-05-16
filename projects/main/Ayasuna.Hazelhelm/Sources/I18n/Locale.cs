@@ -91,10 +91,10 @@ public sealed class Locale : IEquatable<Locale>, IComparable<Locale>
         {
             throw new ArgumentException($"The given string '{value}' does not represent a valid locale", nameof(value));
         }
-    
+
         return result;
     }
-    
+
     /// <summary>
     /// Tries to parse the given <paramref name="value"/> into a locale. <br/>
     /// Only strings with the following format <c>ISO_639_ALPHA_2-ISO_3166_ALPHA_2</c> e.g. <c>en-US</c> can be parsed.
@@ -142,7 +142,7 @@ public sealed class Locale : IEquatable<Locale>, IComparable<Locale>
             }
         }
     }
-    
+
     /// <summary>
     /// Gets the <see cref="Locale"/> for the given <paramref name="culture"/>. <br/>
     /// </summary>
@@ -156,7 +156,7 @@ public sealed class Locale : IEquatable<Locale>, IComparable<Locale>
     {
         return Parse(culture.Name);
     }
-    
+
     /// <summary>
     /// Gets the <see cref="Locale"/> with the given <paramref name="id"/>
     /// </summary>
@@ -166,7 +166,7 @@ public sealed class Locale : IEquatable<Locale>, IComparable<Locale>
     {
         return Parse(id.ToString());
     }
-    
+
     /// <summary>
     /// Compares the given <paramref name="left"/> locale with the given <paramref name="right"/> locale for equality
     /// </summary>
@@ -177,7 +177,7 @@ public sealed class Locale : IEquatable<Locale>, IComparable<Locale>
     {
         return left.Equals(right);
     }
-    
+
     /// <summary>
     /// Compares the given <paramref name="left"/> locale with the given <paramref name="right"/> locale for inequality
     /// </summary>
@@ -188,7 +188,7 @@ public sealed class Locale : IEquatable<Locale>, IComparable<Locale>
     {
         return !(left == right);
     }
-    
+
     /// <summary>
     /// Converts the given <paramref name="locale"/> to a <see cref="CultureInfo"/>. <br/>
     /// </summary>
@@ -198,7 +198,7 @@ public sealed class Locale : IEquatable<Locale>, IComparable<Locale>
     {
         return locale.Culture;
     }
-    
+
     /// <summary>
     /// Converts the given <paramref name="culture"/> to a <see cref="Locale"/>. <br/>
     /// </summary>

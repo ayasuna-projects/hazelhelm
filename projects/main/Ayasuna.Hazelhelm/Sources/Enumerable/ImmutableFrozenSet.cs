@@ -2,7 +2,6 @@ namespace Ayasuna.Hazelhelm.Enumerable;
 
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 
 /// <summary>
 /// Contains helper methods for the <see cref="ImmutableFrozenSet{TValue}"/> type

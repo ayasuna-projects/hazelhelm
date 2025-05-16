@@ -67,7 +67,7 @@ public static class EnumerableExtensions
         return @this;
     }
 
-    
+
     /// <summary>
     /// Creates a new <see cref="ImmutableFrozenDictionary{TKey,TValue}"/> from <paramref name="this"/> enumerable
     /// </summary>
@@ -87,10 +87,10 @@ public static class EnumerableExtensions
     ) where TKey : notnull
     {
         return @this
-            .Select(e => new KeyValuePair<TKey,TValue>(keySelector(e), e))
+            .Select(e => new KeyValuePair<TKey, TValue>(keySelector(e), e))
             .ToImmutableFrozenDictionary(keyComparer, valueComparer);
     }
-    
+
     /// <summary>
     /// Creates a new <see cref="ImmutableFrozenDictionary{TKey,TValue}"/> from <paramref name="this"/> enumerable
     /// </summary>
@@ -113,7 +113,7 @@ public static class EnumerableExtensions
     ) where TKey : notnull
     {
         return @this
-            .Select(e => new KeyValuePair<TKey,TValue>(keySelector(e), valueSelector(e)))
+            .Select(e => new KeyValuePair<TKey, TValue>(keySelector(e), valueSelector(e)))
             .ToImmutableFrozenDictionary(keyComparer, valueComparer);
     }
 

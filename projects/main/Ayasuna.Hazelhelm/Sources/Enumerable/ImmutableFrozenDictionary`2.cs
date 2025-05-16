@@ -102,7 +102,7 @@ public sealed class ImmutableFrozenDictionary<TKey, TValue> : IImmutableDictiona
     {
         return new ImmutableFrozenDictionary<TKey, TValue>([], _keyComparer, _valueComparer);
     }
-    
+
     /// <inheritdoc />
     public bool Contains(KeyValuePair<TKey, TValue> pair)
     {

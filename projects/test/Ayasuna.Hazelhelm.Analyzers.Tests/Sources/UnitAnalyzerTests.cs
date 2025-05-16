@@ -1,7 +1,6 @@
 namespace Ayasuna.Hazelhelm.Analyzers.Tests;
 
 using System.Threading.Tasks;
-using Microsoft;
 using Xunit;
 using Verify = Microsoft.CodeAnalysis.CSharp.Testing.CSharpAnalyzerVerifier<UnitAnalyzer, Microsoft.CodeAnalysis.Testing.DefaultVerifier>;
 
