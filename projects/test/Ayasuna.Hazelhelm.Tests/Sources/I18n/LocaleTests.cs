@@ -129,8 +129,7 @@ public sealed class LocaleTests
         Assert.NotNull(locale);
         Assert.NotNull(locale.Culture);
     }
-
-
+    
     /// <summary>
     /// Tests whether the string representation of a <see cref="Locale"/> is equal to the <paramref name="localeId"/>
     /// </summary>
@@ -147,5 +146,29 @@ public sealed class LocaleTests
 
         Assert.Equal(localeId, locale.ToString());
         Assert.Equal(locale.Id.ToString(), locale.ToString());
+    }
+    
+    /// <summary>
+    /// Tests whether the equality operator (<c>==</c>) returns <c>true</c> if both locales are <c>null</c>
+    /// </summary>
+    [Fact]
+    public void The_equality_operator_should_return_true_if_both_locales_are_null()
+    {
+        Locale? a = null;
+        Locale? b = null;
+
+        Assert.True(a == b);
+    }
+    
+    /// <summary>
+    /// Tests whether the equality operator (<c>!=</c>) returns <c>false</c> if both locales are <c>null</c>
+    /// </summary>
+    [Fact]
+    public void The_inequality_operator_should_return_false_if_both_locales_are_null()
+    {
+        Locale? a = null;
+        Locale? b = null;
+
+        Assert.False(a != b);
     }
 }

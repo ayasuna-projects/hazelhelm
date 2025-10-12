@@ -172,10 +172,10 @@ public sealed class Locale : IEquatable<Locale>, IComparable<Locale>
     /// </summary>
     /// <param name="left">The left locale</param>
     /// <param name="right">The right locale</param>
-    /// <returns><c>true</c> if both locales are equal, <c>false</c> otherwise</returns>
-    public static bool operator ==(Locale left, Locale right)
+    /// <returns><c>true</c> if both locales are equal, <c>false</c> otherwise. <br/> <c>true</c> is also returned if both locales are <c>null</c></returns>
+    public static bool operator ==(Locale? left, Locale? right)
     {
-        return left.Equals(right);
+        return Equals(left, right);;
     }
 
     /// <summary>
@@ -183,10 +183,10 @@ public sealed class Locale : IEquatable<Locale>, IComparable<Locale>
     /// </summary>
     /// <param name="left">The left locale</param>
     /// <param name="right">The right locale</param>
-    /// <returns><c>true</c> if both locales are not equal, <c>false</c> otherwise</returns>
-    public static bool operator !=(Locale left, Locale right)
+    /// <returns><c>false</c> if both locales are equal, <c>true</c> otherwise. <br/> <c>false</c> is also returned if both locales are <c>null</c></returns>
+    public static bool operator !=(Locale? left, Locale? right)
     {
-        return !(left == right);
+        return !Equals(left, right);
     }
 
     /// <summary>
